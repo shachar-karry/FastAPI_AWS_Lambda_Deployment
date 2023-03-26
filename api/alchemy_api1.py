@@ -1,6 +1,8 @@
+from tempfile import gettempdir
 from fastapi import FastAPI
 from mangum import Mangum
 from pydantic import BaseModel
+
 
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.orm import declarative_base
@@ -8,8 +10,11 @@ from sqlalchemy.orm import sessionmaker
 
 app = FastAPI()
 
+tmp_dir = gettempdir()
+print("temp dir:", tmp_dir)
+
 # create a SQLAlchemy engine and sessionmaker
-engine = create_engine('sqlite:///users.db')
+engine = create_engine('sqlite:///' + tmp_dir + '/users.db')
 Session = sessionmaker(bind=engine)
 
 # define a SQLAlchemy model for user registration
