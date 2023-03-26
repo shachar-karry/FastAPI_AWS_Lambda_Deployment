@@ -11,9 +11,10 @@ async def root():
     return {"message": "Hello World"}
 
 
-@app.get("/gitlog")
-async def root():
-    return {"message": subprocess.check_output(["git", "log", "-n", "1"]) }
+# Does not work trivially in Lambda
+# @app.get("/gitlog")
+# async def root():
+#     return {"message": subprocess.check_output(["git", "log", "-n", "1"]) }
 
 
 @app.get("/r1")
