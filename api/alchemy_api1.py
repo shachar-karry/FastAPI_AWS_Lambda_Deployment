@@ -38,6 +38,7 @@ class User(Base):
 
 
 # create the users table if it doesn't exist
+print("Create all")
 Base.metadata.create_all(bind=engine)
 
 
@@ -78,5 +79,5 @@ def get_users():
 
     return {"users": user_dicts}
 
-
+print("Creating app")
 handler = Mangum(app=app)
