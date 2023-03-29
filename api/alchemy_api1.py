@@ -41,6 +41,8 @@ class User(Base):
 print("Create all")
 Base.metadata.create_all(bind=engine)
 
+print("Create all Completed")
+
 
 # define a Pydantic model for user registration
 class UserRegistration(BaseModel):
