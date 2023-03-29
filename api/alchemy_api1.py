@@ -17,7 +17,7 @@ app = FastAPI()
 load_dotenv(find_dotenv())
 
 # create a SQLAlchemy engine and sessionmaker
-connect_string = get_connect_str() + "/users"
+connect_string = get_connect_str("users")
 
 engine = create_engine(connect_string)
 
