@@ -21,7 +21,11 @@ connect_string = get_connect_str("users")
 
 engine = create_engine(connect_string)
 
+print("Engine created")
+
 Session = sessionmaker(bind=engine)
+
+print("Session created")
 
 # define a SQLAlchemy model for user registration
 Base = declarative_base()
@@ -61,6 +65,7 @@ def register_user(user: UserRegistration):
 # define a route for retrieving all users
 @app.get("/users")
 def get_users():
+    print("Called get_users")
     session = Session()
 
     # retrieve all users from the database
