@@ -13,5 +13,6 @@ engine = sqlalchemy.create_engine(connect_string)  # connect to server
 from sqlalchemy import text
 with engine.connect() as connection:
     result = connection.execute(text("CREATE DATABASE users"))
+    print(result)
 #engine.execute("CREATE DATABASE users")  #create db
 #engine.execute("USE users")  # select new db
