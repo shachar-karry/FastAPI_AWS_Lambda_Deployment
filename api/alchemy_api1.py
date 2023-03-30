@@ -84,6 +84,7 @@ def get_users():
 
 
 # sns sanity + cold start indication
+print("Attempting SNS")
 try:
     sns_client = boto3.client("sns")
     if os.name != "nt":
@@ -92,5 +93,7 @@ except NoRegionError as error:
     print("sns_client error:", error)
     pass
 
+
+print("Initializing handler")
 
 handler = Mangum(app=app)
