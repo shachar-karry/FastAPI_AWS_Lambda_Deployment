@@ -1,4 +1,7 @@
+import os
+
 import boto3
+from botocore.exceptions import ClientError, NoRegionError
 from fastapi import FastAPI
 from mangum import Mangum
 from pydantic import BaseModel
@@ -19,7 +22,7 @@ load_dotenv(find_dotenv())
 
 # create a SQLAlchemy engine and sessionmaker
 connect_string = get_connect_str("users")
-engine = create_engine(connect_string, echo=True)
+engine = create_engine(connect_string) #, echo=True)
 
 print("Engine created")
 
@@ -57,7 +60,7 @@ def register_user(user: UserRegistration):
     session = Session()
     session.add(db_user)
     session.commit()
-    sns_client.publish(PhoneNumber="+972523370403", Message=f"New user registered successfully: {user.username}")
+    #sns_client.publish(PhoneNumber="+972523370403", Message=f"New user registered successfully: {user.username}")
 
     return {"message": "User registered successfully"}
 
@@ -81,7 +84,13 @@ def get_users():
 
 
 # sns sanity + cold start indication
-sns_client = boto3.client("sns")
-sns_client.publish(PhoneNumber="+972523370403", Message=f"New lambda init occurred")
+try:
+    sns_client = boto3.client("sns")
+    if os.name != "nt":
+        sns_client.publish(PhoneNumber="+972523370403", Message=f"New lambda init occurred")
+except NoRegionError as error:
+    print("sns_client error:", error)
+    pass
+
 
 handler = Mangum(app=app)
