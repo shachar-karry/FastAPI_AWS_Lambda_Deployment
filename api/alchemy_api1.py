@@ -2,6 +2,7 @@ import os
 
 import boto3
 from botocore.exceptions import ClientError, NoRegionError
+from botocore.config import Config
 from fastapi import FastAPI
 from mangum import Mangum
 from pydantic import BaseModel
@@ -86,7 +87,8 @@ def get_users():
 # sns sanity + cold start indication
 print("Attempting SNS")
 try:
-    sns_client = boto3.client("sns")
+    sns_client = boto3.client("sns", config=Config(connect_timeout=5))
+    print("SNS client initialized")
     if os.name != "nt":
         sns_client.publish(PhoneNumber="+972523370403", Message=f"New lambda init occurred")
 except NoRegionError as error:
