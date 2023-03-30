@@ -18,13 +18,11 @@ load_dotenv(find_dotenv())
 
 # create a SQLAlchemy engine and sessionmaker
 connect_string = get_connect_str("users")
-engine = create_engine(connect_string)
+engine = create_engine(connect_string, echo=True)
 
 print("Engine created")
 
 Session = sessionmaker(bind=engine)
-
-print("Session created")
 
 # define a SQLAlchemy model for user registration
 Base = declarative_base()
@@ -38,9 +36,7 @@ class User(Base):
 
 
 # create the users table if it doesn't exist
-print("Create all")
 Base.metadata.create_all(bind=engine)
-
 print("Create all Completed")
 
 
@@ -81,5 +77,5 @@ def get_users():
 
     return {"users": user_dicts}
 
-print("Creating app")
+
 handler = Mangum(app=app)
