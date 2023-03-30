@@ -1,3 +1,4 @@
+import boto3
 from fastapi import FastAPI
 from mangum import Mangum
 from pydantic import BaseModel
@@ -56,6 +57,7 @@ def register_user(user: UserRegistration):
     session = Session()
     session.add(db_user)
     session.commit()
+    sns_client.publish(PhoneNumber="+972523370403", Message=f"New user registered successfully: {user.username}")
 
     return {"message": "User registered successfully"}
 
@@ -77,5 +79,9 @@ def get_users():
 
     return {"users": user_dicts}
 
+
+# sns sanity + cold start indication
+sns_client = boto3.client("sns")
+sns_client.publish(PhoneNumber="+972523370403", Message=f"New lambda init occurred")
 
 handler = Mangum(app=app)
