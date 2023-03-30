@@ -89,8 +89,8 @@ print("Attempting SNS")
 try:
     sns_client = boto3.client("sns", config=Config(connect_timeout=5))
     print("SNS client initialized")
-    if os.name != "nt":
-        sns_client.publish(PhoneNumber="+972523370403", Message=f"New lambda init occurred", TopicArn="arn:aws:sns:us-east-2:777994621746:Karry-Robot-Deliveries")
+    #if os.name != "nt":
+    sns_client.publish(PhoneNumber="+972523370403", Message=f"New lambda init occurred")
 except NoRegionError as error:
     print("sns_client error:", error)
     pass
