@@ -22,7 +22,7 @@ load_dotenv(find_dotenv())
 
 # create a SQLAlchemy engine and sessionmaker
 connect_string = get_connect_str("users")
-engine = create_engine(connect_string) #, echo=True)
+engine = create_engine(connect_string, echo=os.getenv("DEBUG_ECHO_SQL", False))
 
 print("Engine created")
 
