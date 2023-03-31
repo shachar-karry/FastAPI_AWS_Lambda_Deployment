@@ -85,15 +85,16 @@ def get_users():
 
 
 # sns sanity + cold start indication
-print("Attempting SNS")
-try:
-    sns_client = boto3.client("sns", config=Config(connect_timeout=5))
-    print("SNS client initialized")
-    #if os.name != "nt":
-    sns_client.publish(PhoneNumber="+972523370403", Message=f"New lambda init occurred")
-except NoRegionError as error:
-    print("sns_client error:", error)
-    pass
+if os.getenv("PUBLISH_ON_INIT", False):
+    print("Attempting SNS")
+    try:
+        sns_client = boto3.client("sns", config=Config(connect_timeout=5))
+        print("SNS client initialized")
+        #if os.name != "nt":
+        sns_client.publish(PhoneNumber="+972523370403", Message=f"New lambda init occurred")
+    except NoRegionError as error:
+        print("sns_client error:", error)
+        pass
 
 
 print("Initializing handler")
