@@ -7,13 +7,13 @@ from dotenv import load_dotenv, find_dotenv
 import os
 
 
-def test_mysql_db():
-    load_dotenv(find_dotenv())
-    # create a SQLAlchemy engine and sessionmaker
-    conn_str = os.getenv("MYSQL_CONNECTION_STR")
-    engine = sqlalchemy.create_engine(conn_str, echo=True)  # connect to server
-    print()
-    print(engine)
+# def test_mysql_db():
+#     load_dotenv(find_dotenv())
+#     # create a SQLAlchemy engine and sessionmaker
+#     conn_str = os.getenv("MYSQL_CONNECTION_STR")
+#     engine = sqlalchemy.create_engine(conn_str, echo=True)  # connect to server
+#     print()
+#     print(engine)
 
 
 def test_health():
