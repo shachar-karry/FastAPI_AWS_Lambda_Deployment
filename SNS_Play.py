@@ -22,7 +22,7 @@ shabat_str = \
 
 for id in phone_book:
     print("sending to :", id, phone_book[id])
-    response = sns_client.publish(PhoneNumber=phone_book[id], Message=shabat_str)
+    #response = sns_client.publish(PhoneNumber=phone_book[id], Message=shabat_str)
 
 
 #response = sns_client.publish(PhoneNumber="+972523370403", Message="בעזרת השם, הסמס הזה יגיע אליכם בשעה טובה וימלא את ביתכם בקדושתה של השבת המבורכת הקרובה. אמן.")
