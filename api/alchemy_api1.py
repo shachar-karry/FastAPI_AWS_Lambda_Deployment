@@ -95,8 +95,9 @@ def get_users():
 
     # retrieve all users from the database
     user = session.query(User.id, User.username, User.password).first()
-
-    return user
+    assert len(user) > 2
+    assert type(user[0]) is int
+    return {"message": "healthy"}
 
 
 # sns sanity + cold start indication
