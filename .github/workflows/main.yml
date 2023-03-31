@@ -101,7 +101,7 @@ jobs:
         with:
           url: "https://662nrjrc97.execute-api.us-east-2.amazonaws.com/v1/health"
           method: 'GET'
-          retry: 5
+          retry: 2
       - name: Show Response
         run: |
           echo ${{ steps.health.outputs.response }}
