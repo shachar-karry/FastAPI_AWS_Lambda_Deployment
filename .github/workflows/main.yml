@@ -58,7 +58,7 @@ jobs:
       - name: Add API files to Zip file
         run: cd ./api && zip -g ../api.zip -r .
       - name: Check zip size
-        run: unzip -l api.zip | grep files
+        run: unzip -l api.zip | tail -2
       - name: Upload zip file artifact
         uses: actions/upload-artifact@v3
         with:
