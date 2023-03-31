@@ -96,9 +96,9 @@ jobs:
 #        with:
 #          url: "https://662nrjrc97.execute-api.us-east-2.amazonaws.com/v1/health"
       - name: Test API health
+        id: health
         uses: fjogeleit/http-request-action@v1
         with:
-          id: health
           url: "https://662nrjrc97.execute-api.us-east-2.amazonaws.com/v1/health"
           method: 'GET'
           retry: 5
