@@ -105,9 +105,8 @@ jobs:
       - name: Show Response
         run: |
           echo ${{ steps.health.outputs.response }}
-          echo ${{ steps.health.outputs }}
-#          echo ${{ steps.health.outputs.headers }}
-#          echo ${{ fromJson(steps.health.outputs.response).status_code }}
+          echo ${{ steps.health.outputs.headers }}
+          echo ${{ fromJson(steps.health.outputs.response).message }}
 #      - name: Check status code
 #        run: |
 #          if [ "${{ steps.health.outputs.status_code }}" != "200" ]; then
