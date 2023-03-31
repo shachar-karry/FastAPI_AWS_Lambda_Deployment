@@ -32,6 +32,8 @@ Session = sessionmaker(bind=engine)
 # define a SQLAlchemy model for user registration
 Base = declarative_base()
 
+sns_client = None
+
 
 class User(Base):
     __tablename__ = 'users'
@@ -61,7 +63,8 @@ def register_user(user: UserRegistration):
     session = Session()
     session.add(db_user)
     session.commit()
-    #sns_client.publish(PhoneNumber="+972523370403", Message=f"New user registered successfully: {user.username}")
+    if sns_client:
+        sns_client.publish(PhoneNumber="+972523370403", Message=f"New user registered successfully: {user.username}")
 
     return {"message": "User registered successfully"}
 
@@ -84,11 +87,23 @@ def get_users():
     return {"users": user_dicts}
 
 
+# define a route for health check
+@app.get("/health")
+def get_users():
+    print("Called health_check")
+    session = Session()
+
+    # retrieve all users from the database
+    user = session.query(User.id, User.username, User.password).first()
+
+    return user
+
+
 # sns sanity + cold start indication
 if os.getenv("PUBLISH_ON_INIT", False):
     print("Attempting SNS")
     try:
-        sns_client = boto3.client("sns", config=Config(connect_timeout=5))
+        sns_client = boto3.client("sns")
         print("SNS client initialized")
         #if os.name != "nt":
         sns_client.publish(PhoneNumber="+972523370403", Message=f"New lambda init occurred")
