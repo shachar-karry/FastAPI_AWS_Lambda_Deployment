@@ -1,4 +1,5 @@
 import os
+import sys
 
 import boto3
 from botocore.exceptions import ClientError, NoRegionError
@@ -14,7 +15,8 @@ from sqlalchemy.orm import sessionmaker
 
 from dotenv import load_dotenv, find_dotenv
 
-from db_utils import get_connect_str
+sys.path.append('..')
+from api.db_utils import get_connect_str
 
 
 app = FastAPI()
