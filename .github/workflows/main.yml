@@ -100,15 +100,17 @@ jobs:
         with:
           url: "https://662nrjrc97.execute-api.us-east-2.amazonaws.com/v1/health"
           method: 'GET'
-      - name: Check status code
-        run: |
-          if [ "${{ steps.response.outputs.status_code }}" != "200" ]; then
-            echo "Error: Expected status code 200, but got ${{ steps.response.outputs.status_code }}";
-            exit 1;
-          fi
-      - name: Check response body
-        run: |
-          if [ "${{ steps.response.outputs.body }}" != "{\"message\":\"healthy\"}" ]; then
-            echo "Error: Unexpected response body";
-            exit 1;
-          fi
+          status-code: "200"
+          body-includes: "Wrong output"
+#      - name: Check status code
+#        run: |
+#          if [ "${{ steps.response.outputs.status_code }}" != "200" ]; then
+#            echo "Error: Expected status code 200, but got ${{ steps.response.outputs.status_code }}";
+#            exit 1;
+#          fi
+#      - name: Check response body
+#        run: |
+#          if [ "${{ steps.response.outputs.body }}" != "{\"message\":\"healthy\"}" ]; then
+#            echo "Error: Unexpected response body";
+#            exit 1;
+#          fi
