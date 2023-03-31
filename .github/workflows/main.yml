@@ -105,6 +105,7 @@ jobs:
       - name: Show Response
         run: |
           echo ${{ steps.health.outputs.response }}
+          echo ${{ steps.health.outputs }}
 #          echo ${{ steps.health.outputs.headers }}
 #          echo ${{ fromJson(steps.health.outputs.response).status_code }}
 #      - name: Check status code
@@ -115,7 +116,7 @@ jobs:
 #          fi
       - name: Check response body
         run: |
-          if [ "${{ steps.health.outputs.response }}" != "{\"message\":\"healthy\"}" ]; then
+          if [ "${{ steps.health.outputs.response }}" != "{"message":"healthy"}" ]; then
             echo "Error: Unexpected response body";
             exit 1;
           fi
