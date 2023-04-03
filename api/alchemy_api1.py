@@ -15,8 +15,7 @@ from sqlalchemy.orm import sessionmaker
 
 from dotenv import load_dotenv, find_dotenv
 
-sys.path.append('..')
-from api.db_utils import get_connect_str
+from db_utils import get_connect_str
 
 
 app = FastAPI()
