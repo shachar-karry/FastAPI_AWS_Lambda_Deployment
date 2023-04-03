@@ -53,6 +53,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_RDS_SECRET_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_RDS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+          POSTGRESQL_CONNECTION_STR: ${{ secrets.POSTGRESQL_CONNECTION_STR }}
         run: . venv/bin/activate && pytest
       - name: Create archive of dependencies
         # We exclude unnecessary packages to save space (hard limited to 250MB) using -x
