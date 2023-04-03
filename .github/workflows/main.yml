@@ -61,7 +61,7 @@ jobs:
         # We exclude unnecessary packages to save space (hard limited to 250MB) using -x
         run: |
           cd ./venv/lib/python3.9/site-packages
-          zip -r9 ../../../../api.zip . -x ./pip/**\* ./setuptools/**\*
+          zip -r9 ../../../../api.zip . -x ./pip/**\* ./setuptools/**\* ./boto*/**\*
       - name: Add API files to Zip file
         run: |
           zip -g api.zip -r utils/
