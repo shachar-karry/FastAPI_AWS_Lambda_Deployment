@@ -1,11 +1,10 @@
 from dotenv import load_dotenv, find_dotenv
-import os
 import boto3
 
 phone_book = \
 {
-    "shachar":"+972523370403",
-    "yochay":"+972523798835",
+    "shachar": "+972523370403",
+    "yochay": "+972523798835",
     "gilad": "+972547824487"
 }
 
@@ -23,10 +22,4 @@ shabat_str = \
 for id in phone_book:
     print("sending to :", id, phone_book[id])
     #response = sns_client.publish(PhoneNumber=phone_book[id], Message=shabat_str)
-
-
-#response = sns_client.publish(PhoneNumber="+972523370403", Message="בעזרת השם, הסמס הזה יגיע אליכם בשעה טובה וימלא את ביתכם בקדושתה של השבת המבורכת הקרובה. אמן.")
-
-#response
-
 
