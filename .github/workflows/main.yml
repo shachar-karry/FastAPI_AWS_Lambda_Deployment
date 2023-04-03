@@ -13,6 +13,8 @@ jobs:
   CI:
     # Define the runner used in the workflow
     runs-on: ubuntu-latest
+    environment:
+      name: AWS_Deployment_Env
     steps:   
       # Check out repo so our workflow can access it
       - uses: actions/checkout@v3
