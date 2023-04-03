@@ -63,7 +63,7 @@ jobs:
           cd ./venv/lib/python3.9/site-packages
           zip -r9 ../../../../api.zip . -x ./pip/**\* ./setuptools/**\*
       - name: Add API files to Zip file
-        run: zip -g api.zip -r api/ new_dir/
+        run: zip -g api.zip -r api/ utils/
       - name: Check zip size
         run: unzip -l api.zip | tail -2
       - name: Upload zip file artifact
