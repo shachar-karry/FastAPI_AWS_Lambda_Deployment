@@ -1,9 +1,7 @@
 import os
-import sys
 
 import boto3
-from botocore.exceptions import ClientError, NoRegionError
-from botocore.config import Config
+from botocore.exceptions import NoRegionError
 from fastapi import FastAPI
 from mangum import Mangum
 from pydantic import BaseModel
@@ -15,7 +13,9 @@ from sqlalchemy.orm import sessionmaker
 
 from dotenv import load_dotenv, find_dotenv
 
-from db_utils import get_connect_str
+import sys
+sys.path.append('..')
+from utils.db_utils import get_connect_str
 
 
 app = FastAPI()

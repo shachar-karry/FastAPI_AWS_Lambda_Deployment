@@ -1,7 +1,7 @@
 import sqlalchemy
 from dotenv import load_dotenv, find_dotenv
 
-from api.db_utils import get_connect_str
+from utils.db_utils import get_connect_str
 
 from sqlalchemy import text
 
