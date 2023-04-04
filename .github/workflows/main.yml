@@ -57,15 +57,31 @@ jobs:
           AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
           POSTGRESQL_CONNECTION_STR: ${{ secrets.POSTGRESQL_CONNECTION_STR }}
         run: . venv/bin/activate && pytest
-      - name: Create archive of dependencies
+#      - name: Create archive of dependencies
         # We exclude unnecessary packages to save space (hard limited to 250MB) using -x
+#        run: |
+#          cd ./venv/lib/python3.9/site-packages
+#          zip -r9 ../../../../api.zip . -x ./pip/**\* ./setuptools/**\* ./boto*/**\* ./s3transfer*/**\*
+      - name: Check dependencies zip cache
+        id: cache-dependencies
+        uses: actions/cache@v2
+        with:
+          path: api.zip
+          key: ${{ runner.os }}-dependencies-${{ hashFiles('requirements_lambda.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-dependencies-
+
+      - name: Zip dependencies
+        if: steps.cache-dependencies.outputs.cache-hit != 'true'
         run: |
           cd ./venv/lib/python3.9/site-packages
           zip -r9 ../../../../api.zip . -x ./pip/**\* ./setuptools/**\* ./boto*/**\* ./s3transfer*/**\*
+
       - name: Add API files to Zip file
         run: |
           zip -g api.zip -r utils/
           cd ./api && zip -g ../api.zip -r .
+
       - name: Check zip size
         run: unzip -l api.zip | tail -2
       - name: Upload zip file artifact
