@@ -110,7 +110,7 @@ jobs:
       - name: Deploy updated Lambda
         run: aws lambda update-function-code --function-name fastapi-sandbox-2 --s3-bucket karry-fastapi-sandbox --s3-key api.zip
 
-  Lambda Test:
+  Lambda-Test:
     runs-on: ubuntu-latest
     environment:
       name: AWS_Deployment_Env
