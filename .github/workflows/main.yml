@@ -82,7 +82,7 @@ jobs:
           zip -g api.zip -r utils/
           cd ./api && zip -g ../api.zip -r .
 
-      - name: Check zip size
+      - name: Show zip size
         run: unzip -l api.zip | tail -2
       - name: Upload zip file artifact
         uses: actions/upload-artifact@v3
