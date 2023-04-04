@@ -112,8 +112,8 @@ jobs:
           aws lambda update-function-code --function-name fastapi-sandbox-2 --s3-bucket karry-fastapi-sandbox --s3-key api.zip
           function_info=$(aws lambda get-function --function-name fastapi-sandbox-2)
           latest_version=$(echo $function_info | jq -r '.Version')
-          while [[ "$(aws lambda get-function --function-name my-function --qualifier $latest_version | jq -r '.Configuration.FunctionArn')" == *"UNPUBLISHED"* ]]; do
-            echo "Waiting for update to complete..."
+          while [[ "$(aws lambda get-function --function-name fastapi-sandbox-2 --qualifier $latest_version | jq -r '.Configuration.FunctionArn')" == *"UNPUBLISHED"* ]]; do
+            echo "Waiting for Lambda update to complete..."
             sleep 3
           done
           echo "Update complete!"
