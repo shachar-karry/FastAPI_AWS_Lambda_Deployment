@@ -120,12 +120,13 @@ jobs:
           function_info=$(aws lambda get-function --function-name fastapi-sandbox-2)
           echo "here 2"
           echo $function_info
-          jq
+          jq --version
+          echo "here 3"
           latest_version=$(echo $function_info | jq -r '.Version')
           echo $latest_version
-          echo "here 3"
-          aws lambda get-function --function-name fastapi-sandbox-2 --qualifier $latest_version
           echo "here 4"
+          aws lambda get-function --function-name fastapi-sandbox-2 --qualifier $latest_version
+          echo "here 5"
           while [[ "$(aws lambda get-function --function-name fastapi-sandbox-2 --qualifier $latest_version | jq -r '.Configuration.FunctionArn')" == *"UNPUBLISHED"* ]]; do
             echo "Waiting for Lambda update to complete..."
             sleep 3
