@@ -113,7 +113,9 @@ jobs:
           echo "here 1"
           function_info=$(aws lambda get-function --function-name fastapi-sandbox-2)
           echo "here 2"
+          echo $function_info
           latest_version=$(echo $function_info | jq -r '.Version')
+          echo $latest_version
           echo "here 3"
           aws lambda get-function --function-name fastapi-sandbox-2 --qualifier $latest_version
           echo "here 4"
