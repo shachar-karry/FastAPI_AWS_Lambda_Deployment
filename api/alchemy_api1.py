@@ -108,7 +108,7 @@ if os.getenv("PUBLISH_ON_INIT", False):
         sns_client = boto3.client("sns")
         print("SNS client initialized")
         #if os.name != "nt":
-        sns_client.publish(PhoneNumber="+972523370403", Message=f"New lambda cold start")
+        sns_client.publish(PhoneNumber="+972523370403", Message=f"New lambda cold start 2")
     except NoRegionError as error:
         print("sns_client error:", error)
         pass
