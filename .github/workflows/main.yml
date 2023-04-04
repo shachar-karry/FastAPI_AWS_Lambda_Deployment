@@ -107,12 +107,12 @@ jobs:
           name: api
       - name: Upload to S3
         run: aws s3 cp api.zip s3://karry-fastapi-sandbox/api.zip
-      - name: 'Setup jq'
-        uses: dcarbone/install-jq-action@v1.0.1
-      - name: 'Check jq'
-        run: |
-          which jq
-          jq --version
+#      - name: 'Setup jq'
+#        uses: dcarbone/install-jq-action@v1.0.1
+#      - name: 'Check jq'
+#        run: |
+#          which jq
+#          jq --version
       - name: Deploy new Lambda 2
         run: |
           aws lambda update-function-code --function-name fastapi-sandbox-2 --s3-bucket karry-fastapi-sandbox --s3-key api.zip
@@ -122,6 +122,7 @@ jobs:
           echo $function_info
           jq --version
           echo "here 3"
+          echo $function_info | jq -r '.Version'
           latest_version=$(echo $function_info | jq -r '.Version')
           echo $latest_version
           echo "here 4"
