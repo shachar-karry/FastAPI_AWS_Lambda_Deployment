@@ -107,8 +107,9 @@ jobs:
           name: api
       - name: Upload to S3
         run: aws s3 cp api.zip s3://karry-fastapi-sandbox/api.zip
+      - name: 'Setup jq'
+        uses: dcarbone/install-jq-action@v1.0.1
       - name: Deploy new Lambda 2
-        uses: sergeysova/jq-action@v2
         run: |
           aws lambda update-function-code --function-name fastapi-sandbox-2 --s3-bucket karry-fastapi-sandbox --s3-key api.zip
           echo "here 1"
@@ -116,16 +117,15 @@ jobs:
           echo "here 2"
           echo $function_info
           echo jq --help
-          #latest_version=$(echo $function_info | jq -r '.Version')
-          latest_version=$("$LATEST")
+          latest_version=$(echo $function_info | jq -r '.Version')
           echo $latest_version
           echo "here 3"
           aws lambda get-function --function-name fastapi-sandbox-2 --qualifier $latest_version
           echo "here 4"
-#          while [[ "$(aws lambda get-function --function-name fastapi-sandbox-2 --qualifier $latest_version | jq -r '.Configuration.FunctionArn')" == *"UNPUBLISHED"* ]]; do
-#            echo "Waiting for Lambda update to complete..."
-#            sleep 3
-#          done
+          while [[ "$(aws lambda get-function --function-name fastapi-sandbox-2 --qualifier $latest_version | jq -r '.Configuration.FunctionArn')" == *"UNPUBLISHED"* ]]; do
+            echo "Waiting for Lambda update to complete..."
+            sleep 3
+          done
           echo "Update complete!"
       - name: Test API health
         id: health
