@@ -128,9 +128,15 @@ jobs:
           echo "here 4"
           aws lambda get-function --function-name fastapi-sandbox-2 --qualifier $latest_version
           echo "here 5"
-          while [[ "$(aws lambda get-function --function-name fastapi-sandbox-2 --qualifier $latest_version | jq -r '.Configuration.FunctionArn')" == *"UNPUBLISHED"* ]]; do
-            echo "Waiting for Lambda update to complete..."
-            sleep 3
+          retry_count=10
+          while [[ "$(aws lambda get-function --function-name fastapi-sandbox-2 --qualifier $latest_version | jq -r '.Configuration.LastUpdateStatus')" != "Successful" ]]; do
+              retry_count=$((retry_count-1))
+              if [[ $retry_count -eq 10 ]]; then
+                  echo "Max retries reached. Exiting..."
+                  exit 1
+              fi
+              echo "Waiting for Lambda update to complete..."
+              sleep 3
           done
           echo "Update complete!"
       - name: Test API health
