@@ -116,15 +116,16 @@ jobs:
           echo "here 2"
           echo $function_info
           echo jq --help
-          latest_version=$(echo $function_info | jq -r '.Version')
+          #latest_version=$(echo $function_info | jq -r '.Version')
+          latest_version="$LATEST"
           echo $latest_version
           echo "here 3"
           aws lambda get-function --function-name fastapi-sandbox-2 --qualifier $latest_version
           echo "here 4"
-          while [[ "$(aws lambda get-function --function-name fastapi-sandbox-2 --qualifier $latest_version | jq -r '.Configuration.FunctionArn')" == *"UNPUBLISHED"* ]]; do
-            echo "Waiting for Lambda update to complete..."
-            sleep 3
-          done
+#          while [[ "$(aws lambda get-function --function-name fastapi-sandbox-2 --qualifier $latest_version | jq -r '.Configuration.FunctionArn')" == *"UNPUBLISHED"* ]]; do
+#            echo "Waiting for Lambda update to complete..."
+#            sleep 3
+#          done
           echo "Update complete!"
       - name: Test API health
         id: health
