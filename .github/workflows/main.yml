@@ -107,9 +107,21 @@ jobs:
           name: api
       - name: Upload to S3
         run: aws s3 cp api.zip s3://karry-fastapi-sandbox/api.zip
-      - name: Deploy new Lambda 2
+      - name: Deploy updated Lambda
+        run: aws lambda update-function-code --function-name fastapi-sandbox-2 --s3-bucket karry-fastapi-sandbox --s3-key api.zip
+
+  Lambda Test:
+    runs-on: ubuntu-latest
+    environment:
+      name: AWS_Deployment_Env
+    needs: [CD]
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+    steps:
+      - name: Wait for deployment to complete
         run: |
-          aws lambda update-function-code --function-name fastapi-sandbox-2 --s3-bucket karry-fastapi-sandbox --s3-key api.zip
           function_info=$(aws lambda get-function --function-name fastapi-sandbox-2)
           latest_version=$(echo $function_info | jq -r '.Configuration.Version')
           retry_count=5
