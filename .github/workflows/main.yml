@@ -117,7 +117,7 @@ jobs:
           echo $function_info
           echo jq --help
           #latest_version=$(echo $function_info | jq -r '.Version')
-          latest_version="$LATEST"
+          latest_version=$("$LATEST")
           echo $latest_version
           echo "here 3"
           aws lambda get-function --function-name fastapi-sandbox-2 --qualifier $latest_version
