@@ -122,7 +122,7 @@ jobs:
           echo $function_info
           jq --version
           echo "here 3"
-          echo $function_info | jq -r '.Version'
+          echo $function_info | jq '.Version'
           latest_version=$(echo $function_info | jq -r '.Version')
           echo $latest_version
           echo "here 4"
