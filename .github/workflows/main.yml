@@ -64,7 +64,7 @@ jobs:
 #          zip -r9 ../../../../api.zip . -x ./pip/**\* ./setuptools/**\* ./boto*/**\* ./s3transfer*/**\*
       - name: Check dependencies zip cache
         id: cache-dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: api.zip
           key: ${{ runner.os }}-dependencies-${{ hashFiles('requirements_lambda.txt') }}
