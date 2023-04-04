@@ -108,6 +108,7 @@ jobs:
       - name: Upload to S3
         run: aws s3 cp api.zip s3://karry-fastapi-sandbox/api.zip
       - name: Deploy new Lambda 2
+        uses: sergeysova/jq-action@v2
         run: |
           aws lambda update-function-code --function-name fastapi-sandbox-2 --s3-bucket karry-fastapi-sandbox --s3-key api.zip
           echo "here 1"
